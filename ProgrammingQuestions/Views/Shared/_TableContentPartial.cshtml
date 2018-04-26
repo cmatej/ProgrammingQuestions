@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ProgrammingQuestions.Models.Question>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="freeSpace"></div>
+
+<table id="questiontable" class="table table-hover">
+    <thead>
+        <tr>
+            <td>Description</td>
+            <td>Technology</td>
+            <td style="width: 70px;">Skill Level</td>
+            <td style="width: 150px;">Country</td>
+            <td style="width: 80px;">Has Solution</td>
+            @*<td style="width: 80px;"></td>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(@m.ShortDescription, "Details", "Home", new {id = m.Id}, null)</td>
+                <td>
+                    @String.Join(", ", m.Technologies.Select(t => t.Name).ToArray())
+                </td>
+
+                <td>@(m.SkillLevelId != null ? m.SkillLevel.Name : "-") </td>
+                <td>@(m.CountryId != null ? m.Country.Name : "-")</td>
+                <td>
+                    @(m.HasSolution == true ?
+                        @Html.Raw("<span class='pull-right glyphicon glyphicon glyphicon-ok'</span>") :
+                        @Html.Raw("<span class='pull-right glyphicon glyphicon glyphicon-remove'</span>"))
+                </td>
+
+                @*<td>
+                    @Html.ActionLink("Details", "Details", "Home", new { id = m.Id }, new { @class = "btn btn-xs btn-primary" })
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+

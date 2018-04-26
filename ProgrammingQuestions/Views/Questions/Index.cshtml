@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ProgrammingQuestions.Models.Question>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="freeSpace"></div>
+
+<table id="questiontable" class="table table-hover">
+    <thead>
+        <tr>
+            <td>Description</td>
+            <td>Skill Level</td>
+            <td>Country</td>
+            <td>Has Solution</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.ShortDescription</td>
+                <td>@m.SkillLevel.Name</td>
+                <td>@m.Country.Name</td>
+                <td>
+                    @(m.HasSolution == true ?
+                        @Html.Raw("<span class='glyphicon glyphicon glyphicon-ok'</span>") : @Html.Raw("<span class='glyphicon glyphicon glyphicon-remove'</span>"))
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#questiontable").DataTable({
+            });
+        });
+    </script>
+}

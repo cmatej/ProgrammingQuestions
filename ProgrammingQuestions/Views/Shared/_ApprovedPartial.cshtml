@@ -1,0 +1,9 @@
+﻿@model ProgrammingQuestions.ViewModels.QuestionAnswersViewModel
+
+@if (User.Identity.IsAuthenticated && !@Model.Question.Approved)
+{
+    <a class="btn btn-success btn-sm backbuttonpartial js-approve" name="approve-task">
+        <span class="glyphicon glyphicon-eye-open"></span>
+        <span>Approve</span>
+    </a>
+}

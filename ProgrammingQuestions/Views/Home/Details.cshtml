@@ -1,0 +1,139 @@
+﻿@model ProgrammingQuestions.ViewModels.QuestionAnswersViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="form-group pull-left col-md-12">
+
+    <h2 style="float:left;">Details</h2>
+    <h2 style="float:right;">
+        <div class="small" style="float: left; margin-right: 10px; margin-top: 10px;" title="Number of users that had similar problem.">
+            @Model.Question.SimilarProblem
+        </div>
+        <div style="float: right;">
+            @Html.Partial("_SimilarProblemPartial")
+        </div>
+    </h2>
+</div>
+<hr style="width: 180px;" class="pull-left" />
+
+<div class="form-group col-md-12">
+    @Html.LabelFor(m => m.Question.ShortDescription)
+    @Html.TextBoxFor(m => m.Question.ShortDescription, new { @class = "form-control", @readonly = "readonly" })
+</div>
+
+<div class="col-md-6">
+    @Html.LabelFor(m => m.Question.SkillLevel.Name)
+    @Html.TextBoxFor(m => m.Question.SkillLevel.Name, new { @class = "form-control", @readonly = "readonly" })
+</div>
+<div class="col-md-6">
+    @Html.LabelFor(m => m.Question.Country.Name)
+    @Html.TextBoxFor(m => m.Question.Country.Name, new { @class = "form-control", @readonly = "readonly" })
+</div>
+<div class="col-lg-12 testdesc">
+    <p>Description</p>
+    <div>@Model.Question.Description</div>
+</div>
+
+<div>
+    @if (Model.Answers.Count > 0)
+    {
+        <table id="answertable" class="table table-hover">
+            <thead>
+                <tr>
+                    <td>Link</td>
+                    <td class="text-right">Is Complete</td>
+                    <td class="text-right">Verified</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model.Answers)
+                {
+                    <tr>
+                        <td><a href="@a.Link" target="_blank">@a.Link</a> </td>
+                        <td>
+                            @(a.IsComplete == true ?
+                                @Html.Raw("<span class='pull-right glyphicon glyphicon glyphicon-ok'</span>") :
+                                @Html.Raw("<span class='pull-right glyphicon glyphicon glyphicon-remove'</span>"))
+                        </td>
+                        <td>
+                            @(a.Verified == true ?
+                                @Html.Raw("<span class='pull-right glyphicon glyphicon glyphicon-ok'</span>") :
+                                @Html.Raw("<span class='pull-right glyphicon glyphicon glyphicon-remove'</span>"))
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <table id="answertable" class="table table-hover">
+            <thead>
+                <tr>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>
+<hr />
+
+
+@*<div style="text-align: justify; ">*@
+<div style="display:flex; ">
+    <div id="lijevi" style="padding-right: 5px;">
+        @Html.Partial("_BackToListPartial")
+    </div>
+    <div>
+        @Html.Partial("_ApprovedPartial")
+    </div>
+</div>
+
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            var url = window.location.pathname;
+            var number = url.substring(url.lastIndexOf('/') + 1);
+
+            $('#Ikona').click(function () {
+                $('#Ikona').removeClass('glyphicon-plus').addClass('glyphicon-ok');
+                $.ajax({
+                    url: '@Url.Action("AddNumber", "Home")',
+                    type: "PATCH",
+                    data: { id: number },
+                    success: function (data) { return true; }
+
+                }).fail(function () { bootbox.alert("Error occured, contact your administrator!"); });
+
+            });
+
+            $(document).on("click", ".js-approve", function (e) {
+                bootbox.confirm("Are you sure you want to approve this task?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: '@Url.Action("Approve", "Home")',
+                            type: "PATCH",
+                            data: { id: number },
+                            success: function (data) {
+                                var urlController = '@Url.Action("Index", "Home")';
+                                window.location.href = urlController;
+                            }
+                        }).fail(function () { bootbox.alert("Error occured, contact your administrator!");});
+                    }
+                });
+            });
+
+        });
+    </script>
+}

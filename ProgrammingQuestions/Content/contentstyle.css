@@ -1,0 +1,59 @@
+﻿body {
+    font-family: 'Open Sans', sans-serif;
+    /*font-family: 'Merriweather', serif;*/
+}
+
+.freeSpace {
+    margin-bottom: 50px;
+}
+
+.jumbotron h2 {
+    margin-bottom: 70px;
+    text-align: center;
+}
+
+.jumbotron p {
+    font-size: 21px;
+}
+
+.tablepartial_view {
+    margin-top: 30px;
+}
+
+#answertable .table > caption + thead > tr:first-child > th, 
+            .table > colgroup + thead > tr:first-child > th, 
+            .table > thead:first-child > tr:first-child > th, 
+            .table > caption + thead > tr:first-child > td, 
+            .table > colgroup + thead > tr:first-child > td, 
+            .table > thead:first-child > tr:first-child > td {
+    border-top: 0;
+    padding-top: 50px;
+}
+
+#answertable {
+    width: 50%;
+}
+
+.testdesc {
+    margin-top: 50px;
+}
+
+.glyphicon-ok {
+    color: green;
+}
+
+.glyphicon-remove {
+    color: red;
+}
+
+.backbuttonpartial {
+    margin-top: 30px;
+}
+
+h2 .glyphicon-plus:hover{
+    color: green;
+}
+
+div #lijevi {
+    padding-right: 10px;
+}

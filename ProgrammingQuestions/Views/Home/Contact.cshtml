@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ProgrammingQuestions.Models.Question>
+@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+
+<table id="testtable" class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Opis</td>
+            <td>Tehnologije</td>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var q in Model)
+            {
+        <tr>
+                <td>@q.ShortDescription</td>
+                <td>
+                    @foreach(var t in q.Technologies)
+                    {
+                        @t.Name
+                    <br />
+                    }
+                </td>
+        </tr>
+            }
+
+    </tbody>
+</table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#testtable").DataTable({
+            });
+        });
+    </script>
+}

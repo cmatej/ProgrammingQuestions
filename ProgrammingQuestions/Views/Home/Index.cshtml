@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h2>
+        <span class="glyphicon glyphicon-align-right"></span>
+        Programming task questions you can expect at job interviews!
+    </h2>
+    <p>
+        Find and try to practice some of programming tasks people get at job interviews.
+    </p>
+    <p>
+        Send us your tasks and solved examples (if available, complete/partial) so others can exercise and also see some pointers when they stuck at some point.
+    </p>
+    <br />
+    <div>
+        <p class="pull-left">
+            <span class="glyphicon glyphicon-search"></span>
+            Search by tehnology, description, country...
+        </p>
+        @Html.ActionLink("Submit Your Problem", "New", "Home", null, new { @class = "btn btn-success pull-right" })
+
+    </div>
+</div>
+
+    @Html.Partial("_TableContentPartial")
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#questiontable").DataTable({
+                "lengthMenu": [[10, 30, 50, -1], [10, 30, 50, "All"]],
+                "iDisplayLength": 30,
+                "targets": [0, 1, 2], // column or columns numbers
+                "orderable": false,  // set orderable for selected columns
+            });
+        });
+    </script>
+}

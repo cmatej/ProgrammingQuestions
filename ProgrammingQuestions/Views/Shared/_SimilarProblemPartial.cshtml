@@ -1,0 +1,24 @@
+﻿@{   
+    
+    string urlHelper = Url.RequestContext.RouteData.Values["id"].ToString();
+    string val = "";
+    if (Request.Cookies["brojac" + urlHelper] != null)
+    {
+        val = Request.Cookies["brojac" + urlHelper].Value;
+    }
+
+}
+
+
+@if (!val.Equals(urlHelper))
+{
+    <div>
+        <span title="Had similar problem?" style="float:right;" id="Ikona" class="glyphicon glyphicon-plus extra" data-val-ikona></span>
+    </div>
+}
+else
+{
+    <div>
+        <span title="Already had similar problem!" style="float:right;" class="glyphicon glyphicon-ok extra" data-val-ikona></span>
+    </div>
+}
